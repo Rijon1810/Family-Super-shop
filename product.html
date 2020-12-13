@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Family Super-Shop</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h2>Family Super-Shop <span>Basudebpur, Natore</span></h2>
+    </header>
+
+    <aside>
+      <ul>
+        <li><a href="#">Dasboard</a></li>
+        <li><a href="#">All Product</a></li>
+        <li><a href="#">Add Product</a></li>
+        <li><a href="#">Sold Product</a></li>
+        <li><a href="#">Logout</a></li>
+      </ul>
+    </aside>
+
+    <div class="product-container">
+      <div class="product-header">
+        <div class="product-header-item">
+          <form>
+            <label for="search-product">Search by </label>
+            <input type="text" name="search-product" id="search-product" />
+            <select name="search-select" id="search-select">
+              <option value="code">Code</option>
+              <option value="name">Name</option>
+              <option value="price">Price</option>
+            </select>
+          </form>
+        </div>
+        <div class="product-header-item">
+          <form>
+            <label for="sort-product">Sort by </label>
+            <input type="text" name="sort-product" id="sort-product" />
+            <select name="sort-select" id="sort-select">
+              <option value="code">Code</option>
+              <option value="Name">Name</option>
+              <option value="Price">Price</option>
+              <option value="availability">Availability</option>
+            </select>
+          </form>
+        </div>
+        <div class="product-header-item">
+          <button>Selected <span id="selected-count">5</span></button>
+        </div>
+        <div class="product-header-item">
+          <form action="">
+            <label for="product-per-page">Product per Page</label>
+            <input type="number" name="product-per-page" min="10" />
+          </form>
+        </div>
+      </div>
+
+      <div class="product-list">
+        <table>
+          <thead>
+            <tr>
+              <th>Product Id</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Available Amount</th>
+              <th>Selected Amount</th>
+              <th>Selected</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Product one</td>
+              <td>300৳</td>
+              <td>20</td>
+              <td><input type="number" /></td>
+              <td><input type="checkbox" /></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Product Two</td>
+              <td>250৳</td>
+              <td>14</td>
+              <td><input type="number" /></td>
+              <td><input type="checkbox" /></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Product Three</td>
+              <td>100৳</td>
+              <td>2</td>
+              <td><input type="number" /></td>
+              <td><input type="checkbox" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,19 +1,66 @@
-*, *::before, *::after{
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-html{
-    font-family: Calibri, sans-serif;
+html {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 10px;
 }
-button{
-    cursor: pointer;
-    outline: none;
-    border: 1px solid #333;
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #e1e1e1;
 }
-a{
-    text-decoration: none;
+button {
+  cursor: pointer;
+  outline: none;
+  border: 1px solid #333;
+}
+a {
+  text-decoration: none;
 }
 
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}
 
+/* product page  */
 
+header {
+  text-align: center;
+  background-color: #292929;
+  color: #fff;
+  padding: 1rem 0;
+  font-size: 1.6rem;
+}
+header span {
+  font-size: 1.2rem;
+  color: #a5a5a5;
+}
 
+aside {
+  position: fixed;
+  left: 0;
+  top: 5.5rem;
+  height: calc(100vh - 5.5rem);
+  width: 20rem;
+  background-color: #333;
+  color: #d1d1d1;
+}
+
+aside a {
+  color: #d1d1d1;
+  font-size: 1.6rem;
+}
