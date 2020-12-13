@@ -44,6 +44,7 @@ header {
   color: #fff;
   padding: 1rem 0;
   font-size: 1.6rem;
+  position: relative;
 }
 header span {
   font-size: 1.2rem;
@@ -53,14 +54,154 @@ header span {
 aside {
   position: fixed;
   left: 0;
-  top: 5.5rem;
+  top: 4.5rem;
   height: calc(100vh - 5.5rem);
   width: 20rem;
+  /* width: 0; */
+  overflow: hidden;
   background-color: #333;
   color: #d1d1d1;
+  padding-top: 5rem;
+  z-index: -1;
+}
+
+header #aside-toggle {
+  position: absolute;
+  height: 3rem;
+  width: 4.5rem;
+  left: 0;
+  top: 5.5rem;
+  padding: 0.5rem 0;
+  z-index: 4;
+  background-color: #333;
+  border-bottom-right-radius: 0.5rem;
+  transition: 0.4s opacity;
+}
+header #aside-toggle:hover {
+  opacity: 0.6;
+}
+
+header #aside-toggle img {
+  height: 100%;
 }
 
 aside a {
   color: #d1d1d1;
   font-size: 1.6rem;
+  padding: 1rem 2rem;
+  display: grid;
+  grid-template-columns: 4rem auto;
+  justify-items: left;
+  align-content: center;
+  transition: 0.3s background-color;
+  position: relative;
+}
+
+aside a:hover {
+  background-color: #555;
+}
+
+aside img {
+  height: 2.2rem;
+}
+
+aside a.active::after {
+  position: absolute;
+  content: '';
+  right: 0;
+  top: 0.6rem;
+  border-width: 1.6rem;
+  border-style: solid;
+  border-color: transparent #e1e1e1 transparent transparent;
+}
+
+.product-container {
+  margin-left: 20rem;
+  padding: 2rem 4rem;
+  font-size: 1.2rem;
+}
+
+.product-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.product-container-inner {
+  border: rgba(0, 0, 0, 0.3) solid 0.1rem;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 2rem;
+}
+.product-header-1,
+.product-header-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.product-header-1 {
+  margin-bottom: 1rem;
+}
+
+.product-header-2 {
+  padding-bottom: 1rem;
+  border-bottom: rgba(0, 0, 0, 0.3) 0.1rem solid;
+}
+
+.product-header-1 form {
+  display: grid;
+  grid-template-columns: auto 10rem 10rem;
+  justify-content: start;
+  align-items: center;
+}
+.product-header-1 .product-container-inner:nth-child(2) form {
+  justify-self: flex-end;
+}
+
+.product-header-item form label {
+  font-size: 1.3rem;
+  margin-right: 0.6rem;
+}
+
+.product-header-item form input,
+.product-header-item form select {
+  border: rgba(0, 0, 0, 0.3) solid 0.1rem;
+  padding: 0.4rem 1rem;
+}
+.product-header-item form input {
+  border-radius: 0.4rem 0 0 0.4rem;
+}
+.product-header-item form select {
+  padding: 0.3rem 1rem;
+  border-left: none;
+  border-radius: 0 0.4rem 0.4rem 0;
+}
+.product-header-2 .product-header-item form input {
+  border-radius: 0.4rem;
+  width: 10rem;
+}
+.product-header-item form input:focus,
+.product-header-item form select:focus {
+  outline: none;
+}
+
+.product-header-2 .product-header-item button {
+  border: rgba(0, 0, 0, 0.3) solid 0.1rem;
+  padding: 0.5rem 2rem;
+  font-size: 1.7rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  background-color: #0d8058;
+  color: #fff;
+  letter-spacing: 0.1rem;
+}
+
+.product-header-2 .product-header-item:nth-child(2) {
+  display: grid;
+  justify-items: end;
+}
+
+#selected-count {
+  border: #fff 0.1rem solid;
+  padding: 0 0.5rem;
+  border-radius: 1rem;
 }

@@ -19,93 +19,126 @@
   <body>
     <header>
       <h2>Family Super-Shop <span>Basudebpur, Natore</span></h2>
+
+      <button id="aside-toggle">
+        <img src="img/angle-double-left.png" alt="" />
+      </button>
     </header>
 
     <aside>
       <ul>
-        <li><a href="#">Dasboard</a></li>
-        <li><a href="#">All Product</a></li>
-        <li><a href="#">Add Product</a></li>
-        <li><a href="#">Sold Product</a></li>
-        <li><a href="#">Logout</a></li>
+        <li>
+          <a href="#" class="active"
+            ><img src="img/dashboard.png" alt="" /> Dasboard</a
+          >
+        </li>
+        <li>
+          <a href="#" class=""
+            ><img src="img/all-product.png" alt="" /> All Product</a
+          >
+        </li>
+        <li>
+          <a href="#"><img src="img/add-product.png" alt="" /> Add Product</a>
+        </li>
+        <li>
+          <a href="#"><img src="img/sold-product.png" alt="" /> Sold Product</a>
+        </li>
+        <li>
+          <a href="#"><img src="img/log-out.png" alt="" /> Logout</a>
+        </li>
       </ul>
     </aside>
 
     <div class="product-container">
-      <div class="product-header">
-        <div class="product-header-item">
-          <form>
-            <label for="search-product">Search by </label>
-            <input type="text" name="search-product" id="search-product" />
-            <select name="search-select" id="search-select">
-              <option value="code">Code</option>
-              <option value="name">Name</option>
-              <option value="price">Price</option>
-            </select>
-          </form>
+      <h2>All Product</h2>
+      <div class="product-container-inner">
+        <div class="product-header-1">
+          <div class="product-header-item">
+            <form>
+              <label for="search-product">Search by </label>
+              <input
+                type="text"
+                name="search-product"
+                id="search-product"
+                placeholder="Type here"
+              />
+              <select name="search-select" id="search-select">
+                <option value="id">Id</option>
+                <option value="name">Name</option>
+                <option value="price">Price</option>
+              </select>
+            </form>
+          </div>
+          <div class="product-header-item">
+            <form>
+              <label for="sort-product">Sort by </label>
+              <input
+                type="text"
+                name="sort-product"
+                id="sort-product"
+                placeholder="Type here"
+              />
+              <select name="sort-select" id="sort-select">
+                <option value="id">Id</option>
+                <option value="Name">Name</option>
+                <option value="Price">Price</option>
+                <option value="availability">Availability</option>
+              </select>
+            </form>
+          </div>
         </div>
-        <div class="product-header-item">
-          <form>
-            <label for="sort-product">Sort by </label>
-            <input type="text" name="sort-product" id="sort-product" />
-            <select name="sort-select" id="sort-select">
-              <option value="code">Code</option>
-              <option value="Name">Name</option>
-              <option value="Price">Price</option>
-              <option value="availability">Availability</option>
-            </select>
-          </form>
+        <div class="product-header-2">
+          <div class="product-header-item">
+            <form action="">
+              <label for="product-per-page">Product per Page</label>
+              <input type="number" name="product-per-page" min="10" />
+            </form>
+          </div>
+          <div class="product-header-item">
+            <button>Selected <span id="selected-count">50</span></button>
+          </div>
         </div>
-        <div class="product-header-item">
-          <button>Selected <span id="selected-count">5</span></button>
-        </div>
-        <div class="product-header-item">
-          <form action="">
-            <label for="product-per-page">Product per Page</label>
-            <input type="number" name="product-per-page" min="10" />
-          </form>
-        </div>
-      </div>
 
-      <div class="product-list">
-        <table>
-          <thead>
-            <tr>
-              <th>Product Id</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Available Amount</th>
-              <th>Selected Amount</th>
-              <th>Selected</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Product one</td>
-              <td>300৳</td>
-              <td>20</td>
-              <td><input type="number" /></td>
-              <td><input type="checkbox" /></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Product Two</td>
-              <td>250৳</td>
-              <td>14</td>
-              <td><input type="number" /></td>
-              <td><input type="checkbox" /></td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Product Three</td>
-              <td>100৳</td>
-              <td>2</td>
-              <td><input type="number" /></td>
-              <td><input type="checkbox" /></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="product-list">
+          <table>
+            <thead>
+              <tr>
+                <th>Product Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Available Amount</th>
+                <th>Selected Amount</th>
+                <th>Selected</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Product one</td>
+                <td>300৳</td>
+                <td>20</td>
+                <td><input type="number" /></td>
+                <td><input type="checkbox" /></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Product Two</td>
+                <td>250৳</td>
+                <td>14</td>
+                <td><input type="number" /></td>
+                <td><input type="checkbox" /></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Product Three</td>
+                <td>100৳</td>
+                <td>2</td>
+                <td><input type="number" /></td>
+                <td><input type="checkbox" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </body>
