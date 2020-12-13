@@ -1,0 +1,19 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+html{
+    font-family: Calibri, sans-serif;
+}
+button{
+    cursor: pointer;
+    outline: none;
+    border: 1px solid #333;
+}
+a{
+    text-decoration: none;
+}
+
+
+
+
+
