@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 html {
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 10px;
 }
 body {
@@ -107,7 +107,7 @@ aside img {
 
 aside a.active::after {
   position: absolute;
-  content: "";
+  content: '';
   right: 0;
   top: 0.6rem;
   border-width: 1.6rem;
@@ -143,7 +143,7 @@ aside a.active::after {
 }
 
 .product-header-2 {
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
   border-bottom: rgba(0, 0, 0, 0.3) 0.1rem solid;
 }
 
@@ -189,8 +189,8 @@ aside a.active::after {
   padding: 0.5rem 2rem;
   font-size: 1.7rem;
   border-radius: 0.5rem;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
-  background-color: #0d8058;
+  box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.3);
+  background-color: #000000a5;
   color: #fff;
   letter-spacing: 0.1rem;
 }
@@ -220,6 +220,10 @@ aside a.active::after {
 .product-list input:focus {
   outline: none;
 }
+#product-table {
+  margin-top: 2rem;
+  font-size: 1.4rem;
+}
 #product-table tr {
   background-color: #f2f2f2;
 }
@@ -229,7 +233,7 @@ aside a.active::after {
 #product-table th {
   padding: 10px;
   text-align: left;
-  background-color: #4caf50;
+  background-color: #000000a5;
   color: white;
 }
 table {
@@ -241,5 +245,5 @@ th,
 td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 3px solid #ddd;
 }
