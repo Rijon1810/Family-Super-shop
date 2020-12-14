@@ -36,6 +36,59 @@ h5 {
   margin: 0;
 }
 
+/* Login  */
+
+.log-in-container {
+  border: 0.1rem rgba(0, 0, 0, 0.3) solid;
+  border-radius: 1rem;
+  margin: 0 auto;
+  margin-top: 15rem;
+  padding: 2rem;
+  width: 60rem;
+  max-width: 80%;
+  box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.3);
+}
+
+.log-in-container h2 {
+  text-align: center;
+  font-size: 3rem;
+  padding: 2rem 0;
+  padding-top: 0;
+  border-bottom: 0.1rem solid rgba(0, 0, 0, 0.3);
+}
+
+.log-in-container form {
+  margin-top: 2rem;
+  font-size: 1.6rem;
+}
+
+.log-in-container input {
+  width: 100%;
+  padding: 1rem;
+  border: 0.1rem solid rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
+  font-size: 1.6rem;
+}
+
+.log-in-container input:focus {
+  outline: none;
+}
+.log-in-container input[type='text'],
+.log-in-container input[type='password'] {
+  margin-bottom: 2rem;
+}
+
+.log-in-container input[type='button'] {
+  background-color: rgba(22, 34, 70, 0.66);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+
+.log-in-container input[type='button']:hover {
+  background-color: rgba(10, 16, 33, 0.8);
+}
+
 /* product page  */
 
 header {
@@ -44,7 +97,11 @@ header {
   color: #fff;
   padding: 1rem 0;
   font-size: 1.6rem;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
 }
 header span {
   font-size: 1.2rem;
@@ -55,6 +112,7 @@ aside {
   position: fixed;
   left: 0;
   top: 4.5rem;
+  bottom: 0;
   height: calc(100vh - 5.5rem);
   width: 20rem;
   /* width: 0; */
@@ -62,20 +120,21 @@ aside {
   background-color: #333;
   color: #d1d1d1;
   padding-top: 5rem;
-  z-index: -1;
+  z-index: 2;
 }
 
 header #aside-toggle {
   position: absolute;
   height: 3rem;
   width: 4.5rem;
-  left: 0;
+  left: 15.5rem;
   top: 5.5rem;
   padding: 0.5rem 0;
   z-index: 4;
   background-color: #333;
   border-bottom-right-radius: 0.5rem;
   transition: 0.4s opacity;
+  box-shadow: 0 0 1rem rgba(10, 16, 33, 1);
 }
 header #aside-toggle:hover {
   opacity: 0.6;
@@ -117,6 +176,7 @@ aside a.active::after {
 
 .product-container {
   margin-left: 20rem;
+  margin-top: 7rem;
   padding: 2rem 4rem;
   font-size: 1.2rem;
 }
@@ -150,16 +210,17 @@ aside a.active::after {
 .product-header-1 form {
   display: grid;
   grid-template-columns: auto 10rem 10rem;
-  justify-content: start;
+  justify-content: end;
   align-items: center;
 }
-.product-header-1 .product-container-inner:nth-child(2) form {
-  justify-self: flex-end;
+form#search-form {
+  justify-content: start;
 }
 
 .product-header-item form label {
   font-size: 1.3rem;
   margin-right: 0.6rem;
+  opacity: 0.7;
 }
 
 .product-header-item form input,
@@ -232,7 +293,7 @@ aside a.active::after {
 }
 #product-table th {
   padding: 10px;
-  text-align: left;
+  text-align: center;
   background-color: #000000a5;
   color: white;
 }
@@ -244,6 +305,54 @@ table {
 th,
 td {
   padding: 12px;
-  text-align: left;
+  text-align: center;
   border-bottom: 3px solid #ddd;
+}
+.product-list td input {
+  width: 7rem;
+}
+
+/* Add Product  */
+.product-container-inner.add-product-container-inner {
+  width: 60rem;
+  max-width: 90%;
+  margin: 0 auto;
+}
+.add-product-container input {
+  width: 100%;
+  padding: 1rem;
+  border: 0.1rem solid rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
+  font-size: 1.6rem;
+}
+
+.add-product-container input:focus {
+  outline: none;
+}
+.add-product-container input {
+  margin-bottom: 1.5rem;
+}
+
+.add-product-container input[type='button'] {
+  background-color: rgba(22, 34, 70, 0.66);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+
+.add-product-container input[type='button']:hover {
+  background-color: rgba(10, 16, 33, 0.8);
+}
+
+.add-product-container .disabled-input {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+.add-product-container .disabled-input label {
+  margin-right: 3rem;
+  margin-top: 0.3rem;
+}
+.add-product-container .disabled-input input {
+  padding: 0;
+  padding: 0.3rem 1rem;
 }
