@@ -20,38 +20,44 @@
     <header>
       <h2>Family Super-Shop <span>Basudebpur, Natore</span></h2>
 
-      <button id="aside-toggle">
-        <img src="img/angle-double-left.png" alt="" />
+      <button id="aside-toggle" class="">
+        <img src="img/angle-left.png" alt="" />
       </button>
     </header>
 
-    <aside>
+    <aside id="side-bar" class="">
       <ul>
         <li>
-          <a href="#" class="active"
-            ><img src="img/dashboard.png" alt="" /> Dasboard</a
-          >
+          <a href="#" class="active side-link"
+            ><img src="img/dashboard.png" alt="" /><span>Dasboard</span>
+          </a>
         </li>
         <li>
-          <a href="#" class=""
-            ><img src="img/all-product.png" alt="" /> All Product</a
-          >
+          <a href="#" class="side-link"
+            ><img src="img/all-product.png" alt="" /><span>All Product</span>
+          </a>
         </li>
         <li>
-          <a href="#"><img src="img/add-product.png" alt="" /> Add Product</a>
+          <a href="#" class="side-link"
+            ><img src="img/add-product.png" alt="" /><span>Add Product</span>
+          </a>
         </li>
         <li>
-          <a href="#"><img src="img/sold-product.png" alt="" /> Sold Product</a>
+          <a href="#" class="side-link"
+            ><img src="img/sold-product.png" alt="" /><span>Sold Product</span>
+          </a>
         </li>
         <li>
-          <a href="#"><img src="img/log-out.png" alt="" /> Logout</a>
+          <a href="#" class="side-link"
+            ><img src="img/log-out.png" alt="" /><span>Logout</span>
+          </a>
         </li>
       </ul>
     </aside>
 
-    <div class="product-container">
-      <h2>Add Product</h2>
+    <div class="product-container" id="product-container">
       <div class="product-container-inner">
+        <h2>Add Product</h2>
         <div class="product-header-1">
           <div class="product-header-item">
             <form id="search-form">
@@ -100,7 +106,9 @@
             </form>
           </div>
           <div class="product-header-item">
-            <button>Selected <span id="selected-count">50</span></button>
+            <button id="selected-btn">
+              Selected <span id="selected-count">50</span>
+            </button>
           </div>
         </div>
 

@@ -101,6 +101,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
+  min-height: 5.5rem;
   z-index: 10;
 }
 header span {
@@ -115,12 +116,16 @@ aside {
   bottom: 0;
   height: calc(100vh - 5.5rem);
   width: 20rem;
-  /* width: 0; */
   overflow: hidden;
   background-color: #333;
   color: #d1d1d1;
   padding-top: 5rem;
   z-index: 2;
+  transition: all 0.4s;
+}
+
+.hidden {
+  left: -20rem;
 }
 
 header #aside-toggle {
@@ -132,16 +137,27 @@ header #aside-toggle {
   padding: 0.5rem 0;
   z-index: 4;
   background-color: #333;
-  border-bottom-right-radius: 0.5rem;
-  transition: 0.4s opacity;
+  border-radius: 0.5rem;
+  border-top-left-radius: 0;
+  transition: 0.4s all;
+  border: rgba(255, 255, 255, 0.1) 0.1rem solid;
   box-shadow: 0 0 1rem rgba(10, 16, 33, 1);
 }
+
+#aside-toggle.hidden {
+  left: 0;
+}
+
 header #aside-toggle:hover {
   opacity: 0.6;
 }
 
 header #aside-toggle img {
   height: 100%;
+  transition: 0.4s transform;
+}
+header #aside-toggle.hidden img {
+  transform: rotate(180deg);
 }
 
 aside a {
@@ -158,6 +174,9 @@ aside a {
 
 aside a:hover {
   background-color: #555;
+}
+aside a.active {
+  background-color: rgba(85, 85, 85, 0.3);
 }
 
 aside img {
@@ -179,6 +198,10 @@ aside a.active::after {
   margin-top: 7rem;
   padding: 2rem 4rem;
   font-size: 1.2rem;
+  transition: all 0.4s;
+}
+.product-container.hidden {
+  margin-left: 0;
 }
 
 .product-container h2 {
@@ -191,6 +214,7 @@ aside a.active::after {
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: rgba(0, 0, 0, 0.3) 0 0 2rem;
+  min-width: 60rem;
 }
 .product-header-1,
 .product-header-2 {
@@ -254,6 +278,11 @@ form#search-form {
   background-color: #000000a5;
   color: #fff;
   letter-spacing: 0.1rem;
+  transition: all 0.4s;
+}
+.product-header-2 .product-header-item button:hover {
+  background-color: rgb(222, 222, 222);
+  color: rgba(10, 16, 33, 1);
 }
 
 .product-header-2 .product-header-item:nth-child(2) {
@@ -266,6 +295,10 @@ form#search-form {
   padding: 0 0.5rem;
   border-radius: 1rem;
 }
+.product-header-2 .product-header-item button:hover #selected-count {
+  border-color: #000;
+}
+
 .product-list {
   display: flex;
   align-items: center;
