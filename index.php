@@ -1,3 +1,15 @@
+<?php
+
+include('config/db-connection.php');
+$message = '';
+if (isset($_POST['submit'])) {
+  $message = checkUser($_POST['username'], $_POST['password'], $connect);
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,14 +29,15 @@
     <script src="js/script.js" defer></script>
   </head>
   <body>
-    <header>
+    <!-- <header>
       <h2>Family Super-Shop</h2>
       <h4>Jhenaidah</h4>
-    </header>
+    </header> -->
 
     <div class="log-in-container">
       <h2>Log In</h2>
-      <form action="" class="login-form">
+      <form action="index.php" class="login-form" method="post">
+        <p class="alert-msg"><?php echo $message ?></p>
         <label for="username">Username</label>
         <input
           type="text"
@@ -39,7 +52,7 @@
           id="password"
           placeholder="Enter Password"
         />
-        <input type="button" value="Submit" />
+        <input type="submit" value="Submit" name="submit"/>
       </form>
     </div>
   </body>
