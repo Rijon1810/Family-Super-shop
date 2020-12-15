@@ -29,10 +29,9 @@ if (isset($_POST['submit'])) {
     <script src="js/script.js" defer></script>
   </head>
   <body>
-    <!-- <header>
-      <h2>Family Super-Shop</h2>
-      <h4>Jhenaidah</h4>
-    </header> -->
+    <header>
+      <h2>Family Super-Shop <span>Basudebpur, Natore</span></h2>
+    </header>
 
     <div class="log-in-container">
       <h2>Log In</h2>

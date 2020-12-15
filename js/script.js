@@ -27,6 +27,7 @@ sideBar.addEventListener('click', (e) => {
     } else if (targetNode.innerText === 'Add Product') {
       addProduct()
     } else if (targetNode.innerText === 'Logout') {
+      logOut()
     }
   }
 })
@@ -44,14 +45,14 @@ function addProduct() {
           </div>
           <div id="name-input">
             <label for="name">Product Name</label>
-            <input type="text" name="name" placeholder="Enter name" />
+            <input type="text" name="name" id="product-name-input" placeholder="Enter name" />
           </div>
           <label for="amount">Amount</label>
-          <input type="number" name="amount" />
+          <input type="number" id="amount-input" name="amount" />
           <label for="price">Buying Price</label>
-          <input type="number" name="buying-price" />
+          <input type="number" name="buying-price" id="buying-price-input" />
           <label for="selling-price">Selling Price</label>
-          <input type="number" name="selling-price" />
+          <input type="number" name="selling-price" id="celling-price-input" />
           <input type="submit" value="Add Product" id="add-product-btn" name="submit" />
         </form>`
   productContainer.classList.add('add-product-container')
@@ -71,6 +72,13 @@ function addProduct() {
         .setAttribute('disabled', '')
       document.getElementById('name-input').style.display = ''
       document.getElementById('add-product-btn').value = 'Add Product'
+
+      fetch('models/fetchNewProductId.php')
+        .then((res) => res.json())
+        .then((data) => {
+          document.getElementById('disabled-input-inner').value =
+            parseInt(data) + 1
+        })
     } else if (e.target.id === 'existing-product') {
       e.target.classList.add('active')
       newProduct.classList.remove('active')
@@ -79,14 +87,24 @@ function addProduct() {
         .removeAttribute('disabled')
       document.getElementById('name-input').style.display = 'none'
       document.getElementById('add-product-btn').value = 'Update Product'
+      document.getElementById('disabled-input-inner').value = ''
     }
   })
 
   document.getElementById('add-product-btn').addEventListener('click', (e) => {
     e.preventDefault()
     if (newProduct.classList.contains('active')) {
+      addNewProduct()
+    } else if (existingProduct.classList.contains('active')) {
+      updateProduct()
     }
   })
+
+  fetch('models/fetchNewProductId.php')
+    .then((res) => res.json())
+    .then((data) => {
+      document.getElementById('disabled-input-inner').value = parseInt(data) + 1
+    })
 }
 
 function fetchAllProduct() {
@@ -180,5 +198,89 @@ function renderProducts(products) {
 function classRemover(nodeLists, className) {
   ;[...nodeLists].forEach((node) => {
     node.classList.remove(className)
+  })
+}
+
+function addNewProduct() {
+  let name = document.getElementById('product-name-input').value,
+    amount = document.getElementById('amount-input').value,
+    bPrice = document.getElementById('buying-price-input').value,
+    cPrice = document.getElementById('celling-price-input').value
+
+  if (name !== '' && amount !== '' && bPrice !== '' && cPrice !== '') {
+    fetch('models/addNewProduct.php', {
+      method: 'POST',
+      body: JSON.stringify({
+        name: name,
+        amount: amount,
+        bPrice: bPrice,
+        cPrice: cPrice,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data == 'success') {
+          document.getElementById('product-name-input').value = ''
+          document.getElementById('amount-input').value = ''
+          document.getElementById('buying-price-input').value = ''
+          document.getElementById('celling-price-input').value = ''
+          alert('Product Inserted Successfully!')
+        }
+      })
+  }
+}
+
+function updateProduct() {
+  let id = document.getElementById('disabled-input-inner').value,
+    amount = document.getElementById('amount-input').value,
+    bPrice = document.getElementById('buying-price-input').value,
+    cPrice = document.getElementById('celling-price-input').value
+
+  fetch('models/checkProductId.php', {
+    method: 'POST',
+    body: JSON.stringify({
+      id: id,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data == 'success') {
+        if (id !== '' && amount !== '' && bPrice !== '' && cPrice !== '') {
+          fetch('models/updateProduct.php', {
+            method: 'POST',
+            body: JSON.stringify({
+              id: id,
+              amount: amount,
+              bPrice: bPrice,
+              cPrice: cPrice,
+            }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data == 'success') {
+                document.getElementById('disabled-input-inner').value = ''
+                document.getElementById('amount-input').value = ''
+                document.getElementById('buying-price-input').value = ''
+                document.getElementById('celling-price-input').value = ''
+                alert('Product Updated Successfully!')
+              }
+            })
+        }
+      } else {
+        alert('Invalid Product Id!')
+      }
+    })
+}
+
+function logOut() {
+  let output = `<h2>Please confirm your Logout</h2>
+        <div class="logout-outer"><button id="logout-btn">Log Out</button></div>`
+  productContainerInner.innerHTML = output
+  document.getElementById('logout-btn').addEventListener('click', (e) => {
+    fetch('models/logout.php')
+      .then((res) => res.json())
+      .then((data) => {
+        window.location.href = 'index.php'
+      })
   })
 }
