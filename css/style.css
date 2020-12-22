@@ -397,12 +397,84 @@ td {
   background-color: rgba(0, 0, 0, 0.913);
   z-index: 20;
   padding: 5rem;
-  font-style: 1.6rem;
+  font-size: 1.6rem;
+  overflow: auto;
+}
+
+#selected-product-container.hidden {
+  display: none;
 }
 
 #selected-product-container #selected-product-container-inner {
-  background-color: #fff;
+  background-color: #e1e1e1;
   padding: 4rem;
+  border-radius: 2rem;
+  min-width: 60rem;
+  position: relative;
+  transition: transform 0.4s;
+  transform: scale(1);
+  padding-bottom: 10rem;
+}
+
+#selected-product-container-inner tbody input[type='number'],
+#selected-product-container-inner tbody input[type='number']:focus,
+#selected-product-container-inner tbody input[type='button'],
+#selected-product-container-inner tbody input[type='button']:focus {
+  outline: none;
+}
+
+#selected-product-container-inner tbody input[type='button'] {
+  background-color: rgb(186, 66, 66);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#selected-product-container-inner tbody input[type='button']:hover {
+  background-color: rgb(142, 29, 29);
+}
+#selected-product-container th,
+#selected-product-container td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.228);
+}
+
+#selected-product-container-inner #cross-btn {
+  border: 1px solid rgba(30, 30, 30, 0.468);
+  font-size: 3.5rem;
+  cursor: pointer;
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  padding: 0 1rem;
+  border-radius: 1rem;
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+#selected-product-container-inner #cross-btn:hover {
+  background-color: rgba(30, 30, 30, 0.468);
+}
+
+#confirm-sale {
+  padding: 0.6rem 1.5rem;
+  font-size: 1.8rem;
+  border-radius: 0.7rem;
+  background-color: #2b8eed;
+  border: 1px solid #2b8eed;
+  color: #fff;
+  transition: all 0.3s;
+  position: absolute;
+  bottom: 4rem;
+  right: 4rem;
+}
+
+#confirm-sale:hover {
+  background-color: #e1e1e1;
+  color: #164672;
+  border: 1px solid #164672;
 }
 
 /* Add Product  */
@@ -481,6 +553,7 @@ td {
   padding: 0;
   padding: 0.3rem 1rem;
 }
+
 /* dashboard*/
 .all_card {
   margin-top: 70px;

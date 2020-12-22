@@ -5,27 +5,27 @@ const sideBarBtn = document.getElementById('aside-toggle'),
   productContainerInner = document.getElementById('product-container-inner')
 
 let productList = [
-  {
-    id: 1,
-    name: 'Product one',
-    price: 200,
-    amount: 10,
-    available_amount: 20,
-  },
-  {
-    id: 2,
-    name: 'Product Two',
-    price: 250,
-    amount: 4,
-    available_amount: 30,
-  },
-  {
-    id: 3,
-    name: 'Product Seven',
-    price: 300,
-    amount: 5,
-    available_amount: 30,
-  },
+  // {
+  //   id: 1,
+  //   name: 'Product one',
+  //   price: 200,
+  //   amount: 10,
+  //   available_amount: 20,
+  // },
+  // {
+  //   id: 2,
+  //   name: 'Product Two',
+  //   price: 250,
+  //   amount: 4,
+  //   available_amount: 30,
+  // },
+  // {
+  //   id: 3,
+  //   name: 'Product Seven',
+  //   price: 300,
+  //   amount: 5,
+  //   available_amount: 30,
+  // },
 ]
 
 sideBarBtn.addEventListener('click', (e) => {
@@ -229,8 +229,11 @@ function addListeners() {
   document
     .getElementById('selected-btn')
     .addEventListener('click', initSelectedProducts)
+  document
+    .getElementById('selected-product-container')
+    .addEventListener('click', handleSelectedEvent)
 }
-initSelectedProducts()
+function handleSelectedEvent(e) {}
 function initSelectedProducts() {
   renderSelectedProducts()
 }
@@ -242,13 +245,45 @@ function renderSelectedProducts() {
     output += `<tr>
         <td>${product.id}</td>
         <td id='selected-product-name-${product.id}'>${product.name}</td>
-        <td><input type="number" data-product-id='${product.id}' id='selected-product-amount-${product.id}' min="1" max="${product.available_amount}" /></td>
-        <td id='selected-product-total-amount-${product.id}'></td>
+        <td><input type="number" data-product-id='${product.id}' id='selected-product-amount-${product.id}' min="1" max="${product.available_amount}" value='${product.amount}' /></td>
+        <td id='selected-product-total-price-${product.id}'>${product.total_price}৳</td>
         <td><input type="button" data-product-id='${product.id}' id='selected-product-${product.id}' value="Remove" class="" /></td>
       </tr>`
   })
+  output += `<tr>
+        <td></td>
+        <td></td>
+        <td><h3>Total</h3></td>
+        <td><h3 id="total-price">${calculateTotalPrice()}৳</h3></td>
+        <td><input type="button" id='remove-all' value="Remove All" class="" /></td>
+      </tr>`
   selectedTableBody.innerHTML = output
+  document
+    .getElementById('selected-product-container')
+    .classList.remove('hidden')
+  document.getElementById('cross-btn').addEventListener('click', () => {
+    document
+      .getElementById('selected-product-container')
+      .classList.add('hidden')
+  })
+  selectedTableBody
+    .querySelectorAll('input[type="number"')
+    .forEach((tableInput) =>
+      tableInput.addEventListener('click', (e) => {
+        updateSelectedProductPrice(e.target)
+      })
+    )
+  selectedTableBody
+    .querySelectorAll('input[type="button"')
+    .forEach((tableInput) =>
+      tableInput.addEventListener('click', (e) => {
+        updateSelectedProductList(e.target)
+      })
+    )
 }
+
+function updateSelectedProductPrice(targetElement) {}
+function updateSelectedProductList(targetElement) {}
 
 function renderProducts(products) {
   products = sortProducts(products) || products
@@ -278,6 +313,14 @@ function renderProducts(products) {
   )
 }
 
+function calculateTotalPrice() {
+  let totalPrice = 0
+  productList.forEach((product) => {
+    totalPrice += product.total_price
+  })
+  return totalPrice
+}
+
 function calculateProducts(targetElement, clicked) {
   const productId = targetElement.getAttribute('data-product-id'),
     productAmount = document.getElementById('product-amount-' + productId)
@@ -300,7 +343,11 @@ function calculateProducts(targetElement, clicked) {
     let testFlag = 0
     productList = productList.map((product) => {
       if (product.id == productId) {
-        product = { ...product, amount: productAmount }
+        product = {
+          ...product,
+          amount: productAmount,
+          total_price: product.price * productAmount,
+        }
         testFlag = 1
       }
       return product
@@ -314,12 +361,12 @@ function calculateProducts(targetElement, clicked) {
           price: sellingPrice,
           amount: productAmount,
           available_amount: productAvailableAmount,
+          total_price: productAmount * sellingPrice,
         },
       ]
     }
   }
   document.getElementById('selected-count').innerText = productList.length
-  console.log(productList)
 }
 
 function toggleCheckbox(e) {

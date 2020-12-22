@@ -79,21 +79,22 @@ $message = 'Hi, <span class="span-inner">' . $_SESSION['username'] . '</span>';
         
       </div>
     </div>
-    <div class="selected-product-container" id="selected-product-container">
-      <div id="selected-product-container-inner">
+    <div class="hidden" id="selected-product-container">
+      <div id="selected-product-container-inner" class="">
         <table>
           <thead>
             <tr>
               <th>Id</th>
               <th>Name</th>
               <th>Quantity</th>
-              <th>TotalPrice</th>
+              <th>Price</th>
               <th></th>
             </tr>
           </thead>
           <tbody id="selected-table-body"></tbody>
         </table>
-        
+        <button id="cross-btn">&times;</button>
+        <button id="confirm-sale">Confirm Sale</button>
       </div>
     </div>
   </body>
