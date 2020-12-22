@@ -233,21 +233,22 @@ aside a.active::after {
   box-shadow: rgba(0, 0, 0, 0.3) 0 0 2rem;
   min-width: 60rem;
 }
-.product-header-1,
-.product-header-2 {
+
+.product-header {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  border-bottom: rgba(0, 0, 0, 0.3) 0.1rem solid;
 }
 
 .product-header-1 {
   margin-bottom: 1rem;
+  justify-self: start;
 }
 
-.product-header-2 {
+.product-header-2 .product-header-item {
+  display: grid;
   grid-template-columns: 1fr;
   justify-items: end;
-  padding-bottom: 2rem;
-  border-bottom: rgba(0, 0, 0, 0.3) 0.1rem solid;
 }
 
 .product-header-1 form {
@@ -276,33 +277,43 @@ form#search-form {
 }
 .product-header-item form select {
   padding: 0.3rem 1rem;
-  border-left: none;
   border-radius: 0 0.4rem 0.4rem 0;
+  border-left: none;
 }
-.product-header-2 .product-header-item form input {
+.product-header-1 .product-header-item:nth-child(2) form {
+  margin: 1rem 0;
+}
+.product-header-1 .product-header-item:nth-child(2) form select {
   border-radius: 0.4rem;
-  width: 10rem;
 }
 .product-header-item form input:focus,
 .product-header-item form select:focus {
   outline: none;
 }
+#sort-select {
+  border-radius: 0.4rem 0 0 0.4rem;
+  border-left: rgba(0, 0, 0, 0.3) solid 0.1rem;
+}
+#sort-select-order {
+  border-left: none;
+  border-radius: 0 0.4rem 0.4rem 0;
+  width: 12rem;
+}
 
 .product-header-2 .product-header-item button {
   border: rgba(0, 0, 0, 0.3) solid 0.1rem;
-  padding: 0.5rem 2rem;
+  padding: 1rem 2rem;
   font-size: 1.7rem;
   border-radius: 0.5rem;
-  box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.3);
-  background-color: #000000a5;
-  color: #fff;
-  letter-spacing: 0.1rem;
-  transition: all 0.4s;
-  margin-top: 1rem;
-}
-.product-header-2 .product-header-item button:hover {
+  box-shadow: 0 0 0.5rem #00000048;
   background-color: rgb(222, 222, 222);
   color: rgba(10, 16, 33, 1);
+  letter-spacing: 0.1rem;
+  transition: all 0.4s;
+}
+.product-header-2 .product-header-item button:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
 }
 
 .product-header-2 .product-header-item:nth-child(2) {
@@ -311,12 +322,12 @@ form#search-form {
 }
 
 #selected-count {
-  border: #fff 0.1rem solid;
-  padding: 0 0.5rem;
+  border: rgba(0, 0, 0, 0.509) 0.1rem solid;
+  padding: 0.2rem 0.5rem;
   border-radius: 1rem;
 }
 .product-header-2 .product-header-item button:hover #selected-count {
-  border-color: #000;
+  border-color: rgba(255, 255, 255, 0.509);
 }
 
 .product-list {
@@ -363,6 +374,35 @@ td {
 }
 .product-list td input {
   width: 7rem;
+}
+
+.product-select-btn {
+  background-color: #2b8eed;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #fff;
+}
+
+.product-select-btn:focus,
+.product-select-btn:hover {
+  outline: none;
+}
+
+#selected-product-container {
+  position: fixed;
+  top: 5.5rem;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.913);
+  z-index: 20;
+  padding: 5rem;
+  font-style: 1.6rem;
+}
+
+#selected-product-container #selected-product-container-inner {
+  background-color: #fff;
+  padding: 4rem;
 }
 
 /* Add Product  */
@@ -487,7 +527,7 @@ td {
 
 #logout-btn {
   padding: 1rem 3rem;
-  font-size: 2rem;
+  font-size: 1.7rem;
   margin: 2rem 0;
   border-radius: 1rem;
   border: rgba(0, 0, 0, 0.3) solid 0.1rem;

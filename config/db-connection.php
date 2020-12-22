@@ -22,12 +22,12 @@ function checkUser($username, $password, $connect) {
 
 
 $allProducts = array();
-fetchAllProducts('total_amount', $connect);
+fetchAllProducts($connect);
 
-function fetchAllProducts($order_by, $connect) {
-  $query = "SELECT * FROM products ORDER BY ?  DESC";
+function fetchAllProducts($connect) {
+  $query = "SELECT * FROM products WHERE available_amount != 0";
   $statement = $connect->prepare($query);
-  $statement->execute([$order_by]);
+  $statement->execute();
   $result = $statement->fetchAll();
 
   global $allProducts;
@@ -36,5 +36,23 @@ function fetchAllProducts($order_by, $connect) {
     array_push($allProducts, $row);
   }
 }
+
+
+$soldProducts = array();
+fetchSoldProducts($connect);
+
+function fetchSoldProducts($connect) {
+  $query = "SELECT * FROM products WHERE available_amount = 0";
+  $statement = $connect->prepare($query);
+  $statement->execute();
+  $result = $statement->fetchAll();
+
+  global $soldProducts;
+  $soldProducts = array();
+  foreach($result as $row) { 
+    array_push($soldProducts, $row);
+  }
+}
+
 
 ?>

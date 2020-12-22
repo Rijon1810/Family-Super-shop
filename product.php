@@ -5,6 +5,10 @@ $message = '';
 
 session_start();
 
+if (!isset($_SESSION['username'])) {
+  header('location: index.php');
+}
+
 $message = 'Hi, <span class="span-inner">' . $_SESSION['username'] . '</span>';
 
 
@@ -72,6 +76,23 @@ $message = 'Hi, <span class="span-inner">' . $_SESSION['username'] . '</span>';
 
     <div class="product-container" id="product-container">
       <div class="product-container-inner" id="product-container-inner">
+        
+      </div>
+    </div>
+    <div class="selected-product-container" id="selected-product-container">
+      <div id="selected-product-container-inner">
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Quantity</th>
+              <th>TotalPrice</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="selected-table-body"></tbody>
+        </table>
         
       </div>
     </div>
