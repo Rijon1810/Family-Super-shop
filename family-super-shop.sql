@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2020 at 07:46 PM
+-- Generation Time: Dec 23, 2020 at 05:35 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -25,21 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `add_product`
---
-
-CREATE TABLE `add_product` (
-  `id` int(11) NOT NULL,
-  `buying_price` int(11) NOT NULL,
-  `selling_price` int(11) NOT NULL,
-  `amount` int(11) NOT NULL,
-  `date_of_addition` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `products`
 --
 
@@ -51,17 +36,20 @@ CREATE TABLE `products` (
   `total_amount` int(11) NOT NULL,
   `available_amount` int(11) NOT NULL,
   `date_of_creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `total_sell` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `buying_price`, `selling_price`, `total_amount`, `available_amount`, `date_of_creation`, `user_id`) VALUES
-(1, 'Product One', 250, 300, 30, 20, '2020-12-14 18:44:05', 1),
-(2, 'Product Two', 200, 240, 10, 9, '2020-12-14 18:44:05', 2),
-(3, 'Product Three', 250, 300, 30, 20, '2020-12-14 18:44:32', 1);
+INSERT INTO `products` (`id`, `name`, `buying_price`, `selling_price`, `total_amount`, `available_amount`, `date_of_creation`, `user_id`, `total_sell`) VALUES
+(1, 'Product One', 250, 300, 30, 0, '2020-12-14 18:44:05', 1, 6000),
+(2, 'Product Two', 200, 240, 10, 0, '2020-12-14 18:44:05', 2, 2400),
+(3, 'Product Seven', 250, 300, 20, 0, '2020-12-14 18:44:32', 1, 6000),
+(4, 'Product Four', 100, 200, 22, 2, '2020-12-15 16:56:57', 1, 4000),
+(5, 'Product Five', 200, 300, 40, 21, '2020-12-15 16:59:27', 1, 5700);
 
 -- --------------------------------------------------------
 
@@ -89,12 +77,6 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`) VALUES
 --
 
 --
--- Indexes for table `add_product`
---
-ALTER TABLE `add_product`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -111,16 +93,10 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `add_product`
---
-ALTER TABLE `add_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
