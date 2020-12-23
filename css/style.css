@@ -322,12 +322,14 @@ form#search-form {
 }
 
 #selected-count {
-  border: rgba(0, 0, 0, 0.509) 0.1rem solid;
-  padding: 0.2rem 0.5rem;
-  border-radius: 1rem;
+  border: rgb(255, 255, 255) 0.1rem solid;
+  padding: 0.2rem 0.7rem;
+  border-radius: 3rem;
+  margin-left: 1rem;
 }
-.product-header-2 .product-header-item button:hover #selected-count {
-  border-color: rgba(255, 255, 255, 0.509);
+#selected-count.active {
+  background-color: #2b8eed;
+  color: #fff;
 }
 
 .product-list {

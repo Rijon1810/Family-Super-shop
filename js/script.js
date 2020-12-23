@@ -4,29 +4,7 @@ const sideBarBtn = document.getElementById('aside-toggle'),
   productContainer = document.getElementById('product-container'),
   productContainerInner = document.getElementById('product-container-inner')
 
-let productList = [
-  // {
-  //   id: 1,
-  //   name: 'Product one',
-  //   price: 200,
-  //   amount: 10,
-  //   available_amount: 20,
-  // },
-  // {
-  //   id: 2,
-  //   name: 'Product Two',
-  //   price: 250,
-  //   amount: 4,
-  //   available_amount: 30,
-  // },
-  // {
-  //   id: 3,
-  //   name: 'Product Seven',
-  //   price: 300,
-  //   amount: 5,
-  //   available_amount: 30,
-  // },
-]
+let productList = []
 
 sideBarBtn.addEventListener('click', (e) => {
   sideBarBtn.classList.toggle('hidden')
@@ -98,7 +76,7 @@ function initAllProduct() {
           <div class="product-header-2">
             <div class="product-header-item">
               <button id="selected-btn">
-                Selected <span id="selected-count">0</span>
+                Selected <span id="selected-count" class="">0</span>
               </button>
             </div>
           </div>
@@ -228,14 +206,7 @@ function addListeners() {
     .addEventListener('click', getProductSearch)
   document
     .getElementById('selected-btn')
-    .addEventListener('click', initSelectedProducts)
-  document
-    .getElementById('selected-product-container')
-    .addEventListener('click', handleSelectedEvent)
-}
-function handleSelectedEvent(e) {}
-function initSelectedProducts() {
-  renderSelectedProducts()
+    .addEventListener('click', renderSelectedProducts)
 }
 
 function renderSelectedProducts() {
@@ -265,12 +236,15 @@ function renderSelectedProducts() {
     document
       .getElementById('selected-product-container')
       .classList.add('hidden')
+    fetchAllProduct()
   })
   selectedTableBody
     .querySelectorAll('input[type="number"')
     .forEach((tableInput) =>
-      tableInput.addEventListener('click', (e) => {
+      tableInput.addEventListener('input', (e) => {
         updateSelectedProductPrice(e.target)
+        document.getElementById('total-price').innerText =
+          calculateTotalPrice() + '৳'
       })
     )
   selectedTableBody
@@ -280,17 +254,59 @@ function renderSelectedProducts() {
         updateSelectedProductList(e.target)
       })
     )
+  document.getElementById('remove-all').addEventListener('click', (e) => {
+    productList = []
+    renderSelectedProducts()
+  })
 }
 
-function updateSelectedProductPrice(targetElement) {}
-function updateSelectedProductList(targetElement) {}
+function updateSelectedProductPrice(targetElement) {
+  let productId = targetElement.getAttribute('data-product-id')
+  let productAmount = targetElement.value
+  let demoPrice = 0
+  productList = productList.map((product) => {
+    if (product.id == productId) {
+      product = {
+        ...product,
+        amount: productAmount,
+        total_price: product.price * productAmount,
+      }
+      demoPrice = product.total_price
+    }
+    document.getElementById(
+      'selected-product-total-price-' + productId
+    ).innerText = demoPrice + '৳'
+    return product
+  })
+}
+function updateSelectedProductList(targetElement) {
+  let productId = targetElement.getAttribute('data-product-id')
+  productList = productList.filter((product) => {
+    if (product.id != productId) return product
+  })
+  renderSelectedProducts()
+}
 
 function renderProducts(products) {
   products = sortProducts(products) || products
   const tableBody = document.getElementById('table-body')
   let output = ''
   products.forEach((product) => {
-    output += `<tr>
+    let matchedProduct =
+      productList.find((productIn) => {
+        if (product.id == productIn.id) return productIn
+      }) || {}
+    if (matchedProduct.id) {
+      output += `<tr>
+        <td>${product.id}</td>
+        <td id='product-name-${product.id}'>${product.name}</td>
+        <td id='selling-price-${product.id}' data-product-price='${product.selling_price}'>${product.selling_price}৳</td>
+        <td id='product-available-amount-${product.id}'>${product.available_amount}</td>
+        <td><input type="number" data-product-id='${product.id}' id='product-amount-${product.id}' min="1" max="${product.available_amount}" value='${matchedProduct.amount}' /></td>
+        <td><input type="button" data-product-id='${product.id}' id='product-${product.id}' value="Selected" class="" disabled /></td>
+      </tr>`
+    } else {
+      output += `<tr>
         <td>${product.id}</td>
         <td id='product-name-${product.id}'>${product.name}</td>
         <td id='selling-price-${product.id}' data-product-price='${product.selling_price}'>${product.selling_price}৳</td>
@@ -298,6 +314,7 @@ function renderProducts(products) {
         <td><input type="number" data-product-id='${product.id}' id='product-amount-${product.id}' min="1" max="${product.available_amount}" /></td>
         <td><input type="button" data-product-id='${product.id}' id='product-${product.id}' value="Select" class="" /></td>
       </tr>`
+    }
   })
 
   tableBody.innerHTML = output
@@ -367,6 +384,9 @@ function calculateProducts(targetElement, clicked) {
     }
   }
   document.getElementById('selected-count').innerText = productList.length
+  if (productList.length > 0) {
+    document.getElementById('selected-count').classList.add('active')
+  }
 }
 
 function toggleCheckbox(e) {
@@ -580,4 +600,32 @@ function logOut() {
         window.location.href = 'index.php'
       })
   })
+}
+
+document
+  .getElementById('confirm-sale')
+  .addEventListener('click', confirmPurchase)
+
+function confirmPurchase() {
+  productList.forEach((product) => {
+    updateSelectedProduct(product)
+  })
+  productList = []
+  initAllProduct()
+  fetchAllProduct()
+  document.getElementById('selected-product-container').classList.add('hidden')
+  setTimeout(() => {
+    alert('Product Purchased Successfully!')
+  }, 0)
+}
+
+async function updateSelectedProduct(product) {
+  await fetch('models/updateSelectedProduct.php', {
+    method: 'POST',
+    body: JSON.stringify(product),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      fetchAllProduct()
+    })
 }
