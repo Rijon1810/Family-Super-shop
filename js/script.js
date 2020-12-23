@@ -11,7 +11,7 @@ sideBarBtn.addEventListener('click', (e) => {
   sideBar.classList.toggle('hidden')
   productContainer.classList.toggle('hidden')
 })
-
+initDashboard()
 sideBar.addEventListener('click', (e) => {
   let targetNode = ''
   if (e.target.classList.contains('side-link')) {
@@ -24,10 +24,11 @@ sideBar.addEventListener('click', (e) => {
     classRemover(sideLinks, 'active')
     targetNode.classList.add('active')
     if (targetNode.innerText === 'Dashboard') {
+      initDashboard()
     } else if (targetNode.innerText === 'All Product') {
       initAllProduct()
       fetchAllProduct()
-    } else if (targetNode.innerText === 'Add Product') {
+    } else if (targetNode.innerText === 'Update Product') {
       addProduct()
     } else if (targetNode.innerText === 'Sold Product') {
       fetchSoldProduct()
@@ -36,7 +37,22 @@ sideBar.addEventListener('click', (e) => {
     }
   }
 })
-
+function initDashboard() {
+  let output = `
+  <nav><ul>
+    <li class="nav-item active">Daily Income</li>
+    <li class="nav-item">Most Sold Products</li>
+    <li class="nav-item">Most New Products</li>
+    <li class="nav-item">Most Available Products</li>
+  </ul></nav>
+  <div id="dashboard-container"></div>
+  `
+  productContainerInner.innerHTML = output
+  document.querySelectorAll('.nav-item').forEach((navItem) => {
+    navItem.addEventListener('click', handleDashboardNav)
+  })
+  fetchDailyIncome()
+}
 function initAllProduct() {
   let output = `<h2>All Product</h2>
           <div class="product-header">
@@ -609,6 +625,7 @@ document
 function confirmPurchase() {
   productList.forEach((product) => {
     updateSelectedProduct(product)
+    addSoldProduct(product)
   })
   productList = []
   initAllProduct()
@@ -629,3 +646,103 @@ async function updateSelectedProduct(product) {
       fetchAllProduct()
     })
 }
+
+function handleDashboardNav(e) {
+  let navItems = document.querySelectorAll('.nav-item')
+  classRemover(navItems, 'active')
+  e.target.classList.add('active')
+  if (e.target.innerText === 'Daily Income') {
+    fetchDailyIncome()
+  }
+}
+
+function fetchDailyIncome() {
+  let output = `
+    <div class="product-list">
+      <table id="product-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Sold Quantity</th>
+            <th>Total Price</th>
+            <th>Total Profit</th>
+          </tr>
+        </thead>
+        <tbody id='daily-income-table>
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align: center;" id="not-found"></p>`
+  document.getElementById('dashboard-container').innerHTML = output
+  fetchUniqueDates()
+}
+
+function fetchUniqueDates() {
+  fetch('models/fetchUniqueDates.php', {
+    method: 'POST',
+    body: {},
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      fetchDailyIncomeList(data)
+    })
+}
+
+let dailyIncomeList = []
+function fetchDailyIncomeList(dates) {
+  dates.forEach((date) => {
+    calculateDailyIncome(date.date)
+    console.log(dailyIncomeList)
+  })
+}
+
+async function calculateDailyIncome(date) {
+  await fetch('models/calculateDailyIncome.php', {
+    method: 'POST',
+    body: JSON.stringify({ date: date }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      dailyIncomeList.push(data[0])
+    })
+}
+
+async function addSoldProduct(product) {
+  await fetch('models/addSoldProduct.php', {
+    method: 'POST',
+    body: JSON.stringify(product),
+  })
+    .then((res) => res.json())
+    .then((data) => {})
+}
+
+function fetchDailySoldProducts() {
+  fetch('models/fetchAllProducts.php')
+    .then((res) => res.json())
+    .then((data) => {
+      const notFound = document.getElementById('not-found')
+      addListeners()
+      if (data.lenth == 0) {
+        notFound.innerHTML = 'No data have matched or found!'
+      } else renderDailySoldProducts(data)
+    })
+}
+
+function renderDailySoldProducts() {
+  selectedTableBody = document.getElementById('selected-table-body')
+
+  products.forEach((product) => {
+    output += `<tr>
+                <td>${product.id}</td>
+                <td>${product.name}</td>
+                <td>${product.buying_price}৳</td>
+                <td>${product.selling_price}৳</td>
+                <td>${product.available_amount}</td>
+              </tr>`
+  })
+  selectedTableBody.innerHTML = output
+}
+
+// sold_products
+// id p_id date total_price
+//

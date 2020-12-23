@@ -48,7 +48,7 @@ $message = 'Hi, <span class="span-inner">' . $_SESSION['username'] . '</span>';
       <ul>
         <li>
           <a href="#" class="active side-link"
-            ><img src="img/dashboard.png" alt="" /><span>Dasboard</span>
+            ><img src="img/dashboard.png" alt="" /><span>Dashboard</span>
           </a>
         </li>
         <li>
@@ -58,7 +58,7 @@ $message = 'Hi, <span class="span-inner">' . $_SESSION['username'] . '</span>';
         </li>
         <li>
           <a href="#" class="side-link"
-            ><img src="img/add-product.png" alt="" /><span>Add Product</span>
+            ><img src="img/add-product.png" alt="" /><span>Update Product</span>
           </a>
         </li>
         <li>
