@@ -53,7 +53,7 @@ $message = 'Hi, <span class="span-inner">' . $_SESSION['username'] . '</span>';
         </li>
         <li>
           <a href="#" class="side-link"
-            ><img src="img/all-product.png" alt="" /><span>All Product</span>
+            ><img src="img/all-product.png" alt="" /><span>Select Product</span>
           </a>
         </li>
         <li>

@@ -34,6 +34,7 @@ h3,
 h4,
 h5 {
   margin: 0;
+  color: #273041;
 }
 
 /* Login  */
@@ -100,7 +101,7 @@ p.alert-msg {
 
 header {
   text-align: center;
-  background-color: #292929;
+  background-color: #273041;
   color: #fff;
   padding: 1rem 0;
   font-size: 1.6rem;
@@ -110,6 +111,9 @@ header {
   width: 100%;
   min-height: 5.5rem;
   z-index: 10;
+}
+header h2 {
+  color: #fff;
 }
 header span {
   font-size: 1.2rem;
@@ -135,7 +139,7 @@ aside {
   height: calc(100vh - 4.5rem);
   width: 20rem;
   overflow: hidden;
-  background-color: #333;
+  background-color: #273041;
   color: #d1d1d1;
   padding-top: 5rem;
   z-index: 2;
@@ -154,11 +158,11 @@ header #aside-toggle {
   top: 5.5rem;
   padding: 0.5rem 0;
   z-index: 4;
-  background-color: #333;
+  background-color: rgba(10, 16, 33, 1);
   border-radius: 0.5rem;
   border-top-left-radius: 0;
   transition: 0.4s all;
-  border: rgba(255, 255, 255, 0.1) 0.1rem solid;
+  border: rgba(255, 255, 255, 0.379) 0.1rem solid;
   box-shadow: 0 0 1rem rgba(10, 16, 33, 1);
 }
 
@@ -190,9 +194,7 @@ aside a {
   position: relative;
 }
 
-aside a:hover {
-  background-color: #555;
-}
+aside a:hover,
 aside a.active {
   background-color: rgba(85, 85, 85, 0.3);
 }
@@ -314,7 +316,7 @@ form#search-form {
   transition: all 0.4s;
 }
 .product-header-2 .product-header-item button:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: #273041;
   color: #fff;
 }
 
@@ -349,6 +351,7 @@ form#search-form {
 .product-list input:focus {
   outline: none;
 }
+
 #product-table {
   margin-top: 2rem;
   font-size: 1.4rem;
@@ -359,10 +362,12 @@ form#search-form {
 #product-table tr:hover {
   background-color: #ddd;
 }
+
 #product-table th {
   padding: 10px;
   text-align: center;
   background-color: #000000a5;
+  background-color: #3a4861;
   color: white;
 }
 table {
@@ -463,11 +468,11 @@ td {
 }
 
 #confirm-sale {
-  padding: 0.6rem 1.5rem;
+  padding: 0.8rem 1.5rem;
   font-size: 1.8rem;
   border-radius: 0.7rem;
-  background-color: #2b8eed;
-  border: 1px solid #2b8eed;
+  background-color: #273041;
+  border: 1px solid #273041;
   color: #fff;
   transition: all 0.3s;
   position: absolute;
@@ -536,11 +541,12 @@ nav ul li:hover {
   padding: 1rem 2rem;
   margin-bottom: -0.1rem;
   transition: all 0.3s;
+  user-select: none;
 }
 
 .add-product-option button:hover,
 .add-product-option button.active {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #3a4861;
   color: #fff;
 }
 

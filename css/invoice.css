@@ -1,0 +1,125 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 10px;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #e1e1e1;
+}
+
+header {
+  text-align: left;
+  background-color: #273041;
+  color: #fff;
+  padding: 1rem 4rem;
+  font-size: 1.6rem;
+  max-width: 100%;
+}
+h1 {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #1c283e;
+  display: inline;
+}
+h1 span {
+  font-size: 2rem;
+  color: #fff;
+  background-color: #b32727;
+  font-weight: 600;
+  padding: 0 0.5rem;
+  display: inline-block;
+}
+h2 {
+  margin: 0;
+}
+
+#invoice-to {
+  border-left: 1px dashed #3a486180;
+  padding-left: 2rem;
+}
+h3 {
+  font-size: 2rem;
+}
+
+header span {
+  font-size: 1.2rem;
+  color: #a5a5a5;
+}
+
+header span.span-outer {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+header span.span-outer span.span-inner {
+  color: #fff;
+  margin-left: 0.4rem;
+}
+
+#invoice-desc {
+  padding: 4rem;
+}
+#invoice-desc-header {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  margin-bottom: 2rem;
+}
+#invoice-table table {
+  margin-top: 2rem;
+  font-size: 1.4rem;
+}
+#invoice-table table tr {
+  background-color: #f2f2f2;
+}
+#invoice-table table tr:hover {
+  background-color: #ddd;
+}
+
+#invoice-table table th {
+  padding: 10px;
+  text-align: center;
+  background-color: #000000a5;
+  background-color: #3a4861;
+  color: white;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px dashed #3a486180;
+}
+
+#invoice-bottom {
+  margin-top: 3rem;
+}
+#invoice-bottom h3,
+#invoice-bottom p {
+  width: 25rem;
+  margin-left: auto;
+}
+#invoice-bottom #p-sign {
+  opacity: 0.4;
+  margin-bottom: 4rem;
+}
+
+#invoice-bottom h3 {
+  border-top: 1px dashed #1c283e6f;
+  text-align: right;
+}
+
+#invoice-bottom #invoice-sign-desc {
+  text-align: right;
+}

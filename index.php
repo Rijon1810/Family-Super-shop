@@ -26,7 +26,6 @@ if (isset($_POST['submit'])) {
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css" />
-    <script src="js/script.js" defer></script>
   </head>
   <body>
     <header>

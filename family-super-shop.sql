@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 23, 2020 at 05:35 AM
+-- Generation Time: Dec 24, 2020 at 11:55 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -35,7 +35,7 @@ CREATE TABLE `products` (
   `selling_price` int(11) NOT NULL,
   `total_amount` int(11) NOT NULL,
   `available_amount` int(11) NOT NULL,
-  `date_of_creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_of_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int(11) NOT NULL,
   `total_sell` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -44,12 +44,36 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `buying_price`, `selling_price`, `total_amount`, `available_amount`, `date_of_creation`, `user_id`, `total_sell`) VALUES
-(1, 'Product One', 250, 300, 30, 0, '2020-12-14 18:44:05', 1, 6000),
-(2, 'Product Two', 200, 240, 10, 0, '2020-12-14 18:44:05', 2, 2400),
-(3, 'Product Seven', 250, 300, 20, 0, '2020-12-14 18:44:32', 1, 6000),
-(4, 'Product Four', 100, 200, 22, 2, '2020-12-15 16:56:57', 1, 4000),
-(5, 'Product Five', 200, 300, 40, 21, '2020-12-15 16:59:27', 1, 5700);
+INSERT INTO `products` (`id`, `name`, `buying_price`, `selling_price`, `total_amount`, `available_amount`, `date_of_update`, `user_id`, `total_sell`) VALUES
+(1, 'Product One', 200, 230, 40, 40, '2020-12-24 05:03:09', 1, 0),
+(2, 'Product Two', 200, 240, 10, 10, '2020-12-14 18:44:05', 2, 0),
+(3, 'Product Seven', 250, 300, 20, 20, '2020-12-14 18:44:32', 1, 0),
+(4, 'Product Four', 100, 200, 22, 22, '2020-12-15 16:56:57', 1, 0),
+(5, 'Product Five', 200, 300, 40, 40, '2020-12-15 16:59:27', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sold_products`
+--
+
+CREATE TABLE `sold_products` (
+  `id` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL,
+  `total_price` int(11) NOT NULL DEFAULT '0',
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `quantity` int(11) DEFAULT '0',
+  `buying_price` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sold_products`
+--
+
+INSERT INTO `sold_products` (`id`, `p_id`, `total_price`, `date`, `quantity`, `buying_price`) VALUES
+(38, 3, 300, '2020-12-24 10:50:56', 1, 250),
+(40, 1, 230, '2020-12-24 10:51:49', 1, 200),
+(41, 5, 300, '2020-12-24 10:51:49', 1, 200);
 
 -- --------------------------------------------------------
 
@@ -69,8 +93,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`) VALUES
-(1, 'sujan_mridha', '123', 'sujanm.cse5.bu@gmail.com'),
-(2, 'rokibul_rijon', '123', 'rijon.r@yahoo.com');
+(1, 'Sujan Mridha', '123', 'sujanm.cse5.bu@gmail.com'),
+(2, 'Rokibul Rijon', '123', 'rijon.r@yahoo.com');
 
 --
 -- Indexes for dumped tables
@@ -80,6 +104,12 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`) VALUES
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sold_products`
+--
+ALTER TABLE `sold_products`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -97,6 +127,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `sold_products`
+--
+ALTER TABLE `sold_products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `users`

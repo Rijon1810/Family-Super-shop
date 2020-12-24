@@ -5,6 +5,7 @@ const sideBarBtn = document.getElementById('aside-toggle'),
   productContainerInner = document.getElementById('product-container-inner')
 
 let productList = []
+let loggedUsername = ''
 
 sideBarBtn.addEventListener('click', (e) => {
   sideBarBtn.classList.toggle('hidden')
@@ -25,7 +26,7 @@ sideBar.addEventListener('click', (e) => {
     targetNode.classList.add('active')
     if (targetNode.innerText === 'Dashboard') {
       initDashboard()
-    } else if (targetNode.innerText === 'All Product') {
+    } else if (targetNode.innerText === 'Select Product') {
       initAllProduct()
       fetchAllProduct()
     } else if (targetNode.innerText === 'Update Product') {
@@ -39,6 +40,7 @@ sideBar.addEventListener('click', (e) => {
 })
 function initDashboard() {
   let output = `
+  <h2>Dashboard</h2>
   <nav><ul>
     <li class="nav-item active">Daily Income</li>
     <li class="nav-item">Most Sold Products</li>
@@ -47,6 +49,9 @@ function initDashboard() {
   </ul></nav>
   <div id="dashboard-container"></div>
   `
+
+  productContainer.classList.remove('add-product-container')
+  productContainerInner.classList.remove('add-product-container-inner')
   productContainerInner.innerHTML = output
   document.querySelectorAll('.nav-item').forEach((navItem) => {
     navItem.addEventListener('click', handleDashboardNav)
@@ -54,7 +59,7 @@ function initDashboard() {
   fetchDailyIncome()
 }
 function initAllProduct() {
-  let output = `<h2>All Product</h2>
+  let output = `<h2>Select Product</h2>
           <div class="product-header">
           <div class="product-header-1">
             <div class="product-header-item">
@@ -220,9 +225,9 @@ function addListeners() {
   document
     .getElementById('sort-select-order')
     .addEventListener('click', getProductSearch)
-  document
-    .getElementById('selected-btn')
-    .addEventListener('click', renderSelectedProducts)
+  document.getElementById('selected-btn').addEventListener('click', () => {
+    if (productList.length > 0) renderSelectedProducts()
+  })
 }
 
 function renderSelectedProducts() {
@@ -272,7 +277,11 @@ function renderSelectedProducts() {
     )
   document.getElementById('remove-all').addEventListener('click', (e) => {
     productList = []
-    renderSelectedProducts()
+    document
+      .getElementById('selected-product-container')
+      .classList.add('hidden')
+    initAllProduct()
+    fetchAllProduct()
   })
 }
 
@@ -631,13 +640,93 @@ function confirmPurchase() {
     updateSelectedProduct(product)
     addSoldProduct(product)
   })
-  productList = []
-  initAllProduct()
-  fetchAllProduct()
   document.getElementById('selected-product-container').classList.add('hidden')
   setTimeout(() => {
-    alert('Product Purchased Successfully!')
+    printInvoice()
   }, 0)
+}
+
+function printInvoice() {
+  let output = ''
+
+  productList.forEach((product) => {
+    console.log(product)
+    output += `
+    <tr>
+      <td><h4>${product.name}</h4></td>
+      <td>${product.price}৳</td>
+      <td>${product.amount}</td>
+      <td>${product.total_price}৳</td>
+    </tr>
+    `
+  })
+
+  initAllProduct()
+  fetchAllProduct()
+
+  var mywindow = window.open('', 'PRINT', 'height=700,width=900')
+  mywindow.document.write(`<html><head><title>${document.title}</title><link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/invoice.css" />`)
+  mywindow.document.write('</head><body>')
+  mywindow.document.write(`<div id="invoice-container">
+      <div id="invoice">
+        <header>
+          <h2>Family Super-Shop <span>Basudebpur, Natore</span></h2>
+        </header>
+        <div id="invoice-desc">
+          <div id="invoice-desc-header">
+            <div id="invoice-no">
+              <h1>INVOICE <span id="invoice-id">#398492</span></h1>
+              <p>Account No: <span>675645464</span></p>
+              <p>Invoice Date: <span id="invoice-date"></span></p>
+            </div>
+            <div id="invoice-to">
+              <h3 id="invoice-name">${loggedUsername}</h3>
+              <p id="invoice-to-desc">
+                <small>Manager, Family Super-Shop</small>
+              </p>
+              <p>Ph: +8801#######</p>
+              <p>Em: user@gmail.com</p>
+              <p>Addr: Bashudebpur, Natore</p>
+            </div>
+          </div>
+          <div id="invoice-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Unit Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${output}
+                <tr>
+                  <td></td>
+                  <td colspan="2"><h2>Total:</h2></td>
+                  <td><h2>${calculateTotalPrice()}৳</h2></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="invoice-bottom">
+            <p id="p-sign">Signature: </p>
+            <h3 id="invoice-sign">${loggedUsername}</h3>
+            <p id="invoice-sign-desc">Manager, Family Super-Shop</p>
+          </div>
+        </div>
+      </div>
+    </div>`)
+
+  productList = []
+  mywindow.document.write('</body></html>')
+  mywindow.document.close() // necessary for IE >= 10
+  mywindow.focus() // necessary for IE >= 10*/
+  mywindow.print()
 }
 
 async function updateSelectedProduct(product) {
@@ -862,4 +951,17 @@ function renderDailySoldProducts() {
       </tr>`
   })
   tableBody.innerHTML = output
+}
+
+getLoggedUsername()
+function getLoggedUsername() {
+  fetch('models/fetchLoggedUser.php', {
+    method: 'POST',
+    body: {},
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      loggedUsername = data
+      console.log(loggedUsername)
+    })
 }
