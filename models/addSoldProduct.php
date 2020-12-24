@@ -10,9 +10,9 @@ session_start();
 
 $data = json_decode(file_get_contents("php://input"));
 
-$query = "INSERT INTO sold_products (p_id, total_price, quantity) VALUES ( ?, ?, ?)";
+$query = "INSERT INTO sold_products (p_id, total_price, quantity, buying_price) VALUES ( ?, ?, ?, ?)";
 $statement = $connect->prepare($query);
-$statement->execute([$data->id,  $data->total_price, $data->amount]);
+$statement->execute([$data->id,  $data->total_price, $data->amount, $data->buying_price]);
 
 echo json_encode('success'); 
 

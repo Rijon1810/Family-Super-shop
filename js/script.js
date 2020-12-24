@@ -316,7 +316,7 @@ function renderProducts(products) {
       output += `<tr>
         <td>${product.id}</td>
         <td id='product-name-${product.id}'>${product.name}</td>
-        <td id='selling-price-${product.id}' data-product-price='${product.selling_price}'>${product.selling_price}৳</td>
+        <td id='selling-price-${product.id}' data-product-price='${product.selling_price}' data-product-buying-price=''>${product.buying_price}৳</td>
         <td id='product-available-amount-${product.id}'>${product.available_amount}</td>
         <td><input type="number" data-product-id='${product.id}' id='product-amount-${product.id}' min="1" max="${product.available_amount}" value='${matchedProduct.amount}' /></td>
         <td><input type="button" data-product-id='${product.id}' id='product-${product.id}' value="Selected" class="" disabled /></td>
@@ -325,7 +325,7 @@ function renderProducts(products) {
       output += `<tr>
         <td>${product.id}</td>
         <td id='product-name-${product.id}'>${product.name}</td>
-        <td id='selling-price-${product.id}' data-product-price='${product.selling_price}'>${product.selling_price}৳</td>
+        <td id='selling-price-${product.id}' data-product-price='${product.selling_price}' data-product-buying-price='${product.buying_price}'>${product.selling_price}৳</td>
         <td id='product-available-amount-${product.id}'>${product.available_amount}</td>
         <td><input type="number" data-product-id='${product.id}' id='product-amount-${product.id}' min="1" max="${product.available_amount}" /></td>
         <td><input type="button" data-product-id='${product.id}' id='product-${product.id}' value="Select" class="" /></td>
@@ -361,6 +361,9 @@ function calculateProducts(targetElement, clicked) {
     sellingPrice = document
       .getElementById('selling-price-' + productId)
       .getAttribute('data-product-price'),
+    buyingPrice = document
+      .getElementById('selling-price-' + productId)
+      .getAttribute('data-product-buying-price'),
     productName = document.getElementById('product-name-' + productId)
       .innerText,
     productAvailableAmount = document.getElementById(
@@ -392,6 +395,7 @@ function calculateProducts(targetElement, clicked) {
           id: productId,
           name: productName,
           price: sellingPrice,
+          buying_price: buyingPrice,
           amount: productAmount,
           available_amount: productAvailableAmount,
           total_price: productAmount * sellingPrice,
@@ -650,25 +654,147 @@ async function updateSelectedProduct(product) {
 function handleDashboardNav(e) {
   let navItems = document.querySelectorAll('.nav-item')
   classRemover(navItems, 'active')
-  e.target.classList.add('active')
-  if (e.target.innerText === 'Daily Income') {
+  if (
+    e.target.innerText === 'Daily Income' &&
+    !e.target.classList.contains('active')
+  ) {
     fetchDailyIncome()
+    e.target.classList.add('active')
+  } else if (
+    e.target.innerText === 'Most Sold Products' &&
+    !e.target.classList.contains('active')
+  ) {
+    fetchMostSoldProducts()
+    e.target.classList.add('active')
+  } else if (
+    e.target.innerText === 'Most New Products' &&
+    !e.target.classList.contains('active')
+  ) {
+    fetchMostNewProducts()
+    e.target.classList.add('active')
+  } else if (
+    e.target.innerText === 'Most Available Products' &&
+    !e.target.classList.contains('active')
+  ) {
+    fetchMostAvailableProducts()
+    e.target.classList.add('active')
   }
 }
 
+function fetchMostAvailableProducts() {
+  fetch('models/fetchMostAvailableProducts.php', {
+    method: 'POST',
+    body: {},
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      renderMostAvailableProducts(data)
+    })
+}
+
+function renderMostAvailableProducts(products) {
+  products = products.sort((a, b) => b.available_amount - a.available_amount)
+  document.getElementById('table-head').innerHTML = `
+  <tr>
+    <th>Product Id</th>
+    <th>Name</th>
+    <th>Available Amount</th>
+  </tr>`
+
+  let output = ''
+  products.forEach((product) => {
+    output += `
+      <tr>
+        <td>${product.id}</td>
+        <td>${product.name}</td>
+        <td>${product.available_amount}</td>
+      </tr>`
+  })
+  document.getElementById('table-body').innerHTML = output
+}
+
+function fetchMostNewProducts() {
+  fetch('models/fetchMostNewProducts.php', {
+    method: 'POST',
+    body: {},
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      renderMostNewProducts(data)
+    })
+}
+
+function renderMostNewProducts(products) {
+  products = products.sort((a, b) => {
+    if (b.date_of_update > a.date_of_update) return 1
+    else return -1
+  })
+  document.getElementById('table-head').innerHTML = `
+  <tr>
+    <th>Product Id</th>
+    <th>Name</th>
+    <th>Date of Updation</th>
+  </tr>`
+
+  let output = ''
+  products.forEach((product) => {
+    output += `
+      <tr>
+        <td>${product.id}</td>
+        <td>${product.name}</td>
+        <td>${product.date_of_update}</td>
+      </tr>`
+  })
+  document.getElementById('table-body').innerHTML = output
+}
+
+function fetchMostSoldProducts() {
+  fetch('models/fetchMostSoldProducts.php', {
+    method: 'POST',
+    body: {},
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      renderMostSoldProducts(data)
+    })
+}
+
+function renderMostSoldProducts(products) {
+  products = products.sort((a, b) => b.sold_amount - a.sold_amount)
+  document.getElementById('table-head').innerHTML = `
+  <tr>
+    <th>Product Id</th>
+    <th>Name</th>
+    <th>Total Sold</th>
+  </tr>`
+
+  let output = ''
+  products.forEach((product) => {
+    output += `
+      <tr>
+        <td>${product.id}</td>
+        <td>${product.name}</td>
+        <td>${product.sold_amount}</td>
+      </tr>`
+  })
+  document.getElementById('table-body').innerHTML = output
+}
+
+let dailyIncomeList = []
+let dateCount = 0
 function fetchDailyIncome() {
   let output = `
     <div class="product-list">
       <table id="product-table">
-        <thead>
+        <thead id='table-head'>
           <tr>
             <th>Date</th>
             <th>Sold Quantity</th>
             <th>Total Price</th>
-            <th>Total Profit</th>
+            <th>Profit</th>
           </tr>
         </thead>
-        <tbody id='daily-income-table>
+        <tbody id='table-body'>
         </tbody>
       </table>
     </div>
@@ -685,15 +811,16 @@ function fetchUniqueDates() {
     .then((res) => res.json())
     .then((data) => {
       fetchDailyIncomeList(data)
+      dateCount = data.length
     })
 }
 
-let dailyIncomeList = []
 function fetchDailyIncomeList(dates) {
+  dailyIncomeList = []
   dates.forEach((date) => {
     calculateDailyIncome(date.date)
-    console.log(dailyIncomeList)
   })
+  renderDailySoldProducts()
 }
 
 async function calculateDailyIncome(date) {
@@ -705,6 +832,8 @@ async function calculateDailyIncome(date) {
     .then((data) => {
       dailyIncomeList.push(data[0])
     })
+
+  renderDailySoldProducts()
 }
 
 async function addSoldProduct(product) {
@@ -716,33 +845,21 @@ async function addSoldProduct(product) {
     .then((data) => {})
 }
 
-function fetchDailySoldProducts() {
-  fetch('models/fetchAllProducts.php')
-    .then((res) => res.json())
-    .then((data) => {
-      const notFound = document.getElementById('not-found')
-      addListeners()
-      if (data.lenth == 0) {
-        notFound.innerHTML = 'No data have matched or found!'
-      } else renderDailySoldProducts(data)
-    })
-}
-
 function renderDailySoldProducts() {
-  selectedTableBody = document.getElementById('selected-table-body')
-
-  products.forEach((product) => {
-    output += `<tr>
-                <td>${product.id}</td>
-                <td>${product.name}</td>
-                <td>${product.buying_price}৳</td>
-                <td>${product.selling_price}৳</td>
-                <td>${product.available_amount}</td>
-              </tr>`
+  tableBody = document.getElementById('table-body')
+  let output = ''
+  dailyIncomeList = dailyIncomeList.sort((a, b) => {
+    if (b.date > a.date) return 1
+    else return -1
   })
-  selectedTableBody.innerHTML = output
+  dailyIncomeList.forEach((dailyIncome) => {
+    output += `
+      <tr>
+        <td>${dailyIncome.date}</td>
+        <td>${dailyIncome.quantity}</td>
+        <td>${dailyIncome.total_price}৳</td>
+        <td>${dailyIncome.profit}৳</td>
+      </tr>`
+  })
+  tableBody.innerHTML = output
 }
-
-// sold_products
-// id p_id date total_price
-//
