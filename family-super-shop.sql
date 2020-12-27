@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2020 at 04:21 PM
+-- Generation Time: Dec 24, 2020 at 11:55 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bappy-super-shop`
+-- Database: `family-super-shop`
 --
 
 -- --------------------------------------------------------
@@ -45,8 +45,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `buying_price`, `selling_price`, `total_amount`, `available_amount`, `date_of_update`, `user_id`, `total_sell`) VALUES
-(1, 'Product One', 200, 230, 40, 38, '2020-12-24 05:03:09', 1, 460),
-(2, 'Product Two', 200, 240, 10, 8, '2020-12-14 18:44:05', 2, 480),
+(1, 'Product One', 200, 230, 40, 40, '2020-12-24 05:03:09', 1, 0),
+(2, 'Product Two', 200, 240, 10, 10, '2020-12-14 18:44:05', 2, 0),
 (3, 'Product Seven', 250, 300, 20, 20, '2020-12-14 18:44:32', 1, 0),
 (4, 'Product Four', 100, 200, 22, 22, '2020-12-15 16:56:57', 1, 0),
 (5, 'Product Five', 200, 300, 40, 40, '2020-12-15 16:59:27', 1, 0);
@@ -73,9 +73,7 @@ CREATE TABLE `sold_products` (
 INSERT INTO `sold_products` (`id`, `p_id`, `total_price`, `date`, `quantity`, `buying_price`) VALUES
 (38, 3, 300, '2020-12-24 10:50:56', 1, 250),
 (40, 1, 230, '2020-12-24 10:51:49', 1, 200),
-(41, 5, 300, '2020-12-24 10:51:49', 1, 200),
-(42, 2, 480, '2020-12-24 13:34:10', 2, 200),
-(43, 1, 460, '2020-12-24 13:34:10', 2, 200);
+(41, 5, 300, '2020-12-24 10:51:49', 1, 200);
 
 -- --------------------------------------------------------
 
@@ -95,7 +93,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`) VALUES
-(1, 'Md. Robiul Islam', '123', 'bappy@gmail.com');
+(1, 'Sujan Mridha', '123', 'sujanm.cse5.bu@gmail.com'),
+(2, 'Rokibul Rijon', '123', 'rijon.r@yahoo.com');
 
 --
 -- Indexes for dumped tables
@@ -133,7 +132,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `sold_products`
 --
 ALTER TABLE `sold_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `users`

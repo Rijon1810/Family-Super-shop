@@ -674,7 +674,7 @@ function printInvoice() {
   mywindow.document.write(`<div id="invoice-container">
       <div id="invoice">
         <header>
-          <h2>Bappy Super-Shop <span>Basudebpur, Natore</span></h2>
+          <h2>Family Super-Shop <span>Basudebpur, Natore</span></h2>
         </header>
         <div id="invoice-desc">
           <div id="invoice-desc-header">
@@ -686,9 +686,9 @@ function printInvoice() {
             <div id="invoice-to">
               <h3 id="invoice-name">${loggedUsername}</h3>
               <p id="invoice-to-desc">
-                <small>Manager, Bappy Super-Shop</small>
+                <small>Manager, Family Super-Shop</small>
               </p>
-              <p>Ph: +8801705589679</p>
+              <p>Ph: +8801#######</p>
               <p>Em: user@gmail.com</p>
               <p>Addr: Bashudebpur, Natore</p>
             </div>
@@ -716,7 +716,7 @@ function printInvoice() {
           <div id="invoice-bottom">
             <p id="p-sign">Signature: </p>
             <h3 id="invoice-sign">${loggedUsername}</h3>
-            <p id="invoice-sign-desc">Manager, Bappy Super-Shop</p>
+            <p id="invoice-sign-desc">Manager, Family Super-Shop</p>
           </div>
         </div>
       </div>
