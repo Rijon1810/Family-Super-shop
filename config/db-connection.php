@@ -1,6 +1,6 @@
 <?php
 
-$connect = new PDO("mysql:host=localhost;dbname=family-super-shop", "root", "");
+$connect = new PDO("mysql:host=localhost;dbname=bappy-super-shop", "root", "");
 
 
 
