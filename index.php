@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Log In | Bappy Super-Shop</title>
+    <title>Family Super-Shop</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap"
@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
   </head>
   <body>
     <header>
-      <h2>Bappy Super-Shop <span>Basudebpur, Natore</span></h2>
+      <h2>Family Super-Shop <span>Basudebpur, Natore</span></h2>
     </header>
 
     <div class="log-in-container">
