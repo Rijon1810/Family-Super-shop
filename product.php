@@ -10,10 +10,6 @@ if (!isset($_SESSION['username'])) {
 }
 
 $message = 'Hi, <span class="span-inner">' . $_SESSION['username'] . '</span>';
-
-
-
-
 ?>
 
 
@@ -59,11 +55,6 @@ $message = 'Hi, <span class="span-inner">' . $_SESSION['username'] . '</span>';
         <li>
           <a href="#" class="side-link"
             ><img src="img/add-product.png" alt="" /><span>Update Product</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="side-link"
-            ><img src="img/sold-product.png" alt="" /><span>Sold Product</span>
           </a>
         </li>
         <li>
