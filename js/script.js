@@ -229,7 +229,14 @@ function addListeners() {
     if (productList.length > 0) renderSelectedProducts()
   })
 }
-
+async function handleInput(e) {
+  let value = parseInt(e.target.value)
+  let mxValue = parseInt(e.target.max)
+  if (value > mxValue) {
+    e.target.value = mxValue
+    alert(`You have to select maximum ${mxValue}`)
+  }
+}
 function renderSelectedProducts() {
   selectedTableBody = document.getElementById('selected-table-body')
   let output = ''
@@ -263,6 +270,7 @@ function renderSelectedProducts() {
     .querySelectorAll('input[type="number"')
     .forEach((tableInput) =>
       tableInput.addEventListener('input', (e) => {
+        handleInput(e)
         updateSelectedProductPrice(e.target)
         document.getElementById('total-price').innerText =
           calculateTotalPrice() + '৳'
@@ -343,11 +351,12 @@ function renderProducts(products) {
   })
 
   tableBody.innerHTML = output
-  tableBody
-    .querySelectorAll('input[type="number"')
-    .forEach((tableInput) =>
-      tableInput.addEventListener('input', toggleCheckbox)
-    )
+  tableBody.querySelectorAll('input[type="number"').forEach((tableInput) =>
+    tableInput.addEventListener('input', (e) => {
+      handleInput(e)
+      toggleCheckbox(e)
+    })
+  )
   tableBody.querySelectorAll('input[type="button"').forEach((tableInput) =>
     tableInput.addEventListener('click', (e) => {
       calculateProducts(e.target, 'button')
